@@ -5,9 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.validation.ValidationUser;
-
-
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +13,7 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
     private final HashMap<Integer, User> users = new HashMap<>();
-    private final static Logger log = LoggerFactory.getLogger(UserController.class);
+    private final Logger log = LoggerFactory.getLogger(UserController.class);
     private final ValidationUser validationUser = new ValidationUser();
     private int id = 1;
 
