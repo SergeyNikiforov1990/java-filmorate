@@ -12,7 +12,7 @@ import java.util.List;
 public class ValidatorFilm {
     private final LocalDate dateAfter = LocalDate.of(1895, 12, 28); // в коллекции тестов в Postman
     // дата релиза для создания фильма 1967-03-25, в ТЗ
-    private final static Logger log = LoggerFactory.getLogger(UserController.class);
+    private final Logger log = LoggerFactory.getLogger(UserController.class);
 
     public void validation(Film film) throws ValidationException {
         if (film.getName().length() == 0) {

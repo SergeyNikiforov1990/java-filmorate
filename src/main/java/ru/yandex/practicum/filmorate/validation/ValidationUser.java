@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class ValidationUser {
-    private final static Logger log = LoggerFactory.getLogger(UserController.class);
+    private final Logger log = LoggerFactory.getLogger(UserController.class);
 
     public void validation(User user) throws ValidationException {
         char[] mail = user.getEmail().toCharArray();
