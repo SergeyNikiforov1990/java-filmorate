@@ -11,9 +11,10 @@ import java.util.List;
 
 public class ValidationUser {
     private final static Logger log = LoggerFactory.getLogger(UserController.class);
-    public void validation (User user) throws ValidationException {
-        char [] mail = user.getEmail().toCharArray();
-        char [] login = user.getLogin().toCharArray();
+
+    public void validation(User user) throws ValidationException {
+        char[] mail = user.getEmail().toCharArray();
+        char[] login = user.getLogin().toCharArray();
         boolean validMail = false;
         boolean validLogin = false;
         for (char c : mail) {
@@ -51,7 +52,8 @@ public class ValidationUser {
             throw new ValidationException("Дата рождения должна быть ранее текущей даты");
         }
     }
-    public void validationId(User user, List <User> users) { // ????????????????????????????????????????????????
+
+    public void validationId(User user, List<User> users) { // ????????????????????????????????????????????????
         boolean userId = false;
         for (User user1 : users) {
             if (user1.getId() == user.getId()) {
