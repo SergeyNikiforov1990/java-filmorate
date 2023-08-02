@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.validation.ValidationUser;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +25,7 @@ public class UserController {
         return listUsers;
     }
 
-    @PostMapping()
+    @PostMapping
     public User addUser(@RequestBody User user) {
         validationUser.validation(user);
         user.setId(id);
@@ -35,9 +36,12 @@ public class UserController {
     }
 
 
-    @PutMapping()
+    @PutMapping
     public User updateUser(@RequestBody User user) {
-        validationUser.validationId(user, getAllUsers());
+        validationUser.validationId(user);
+        if (!users.containsKey(user.getId())) {
+            throw new RuntimeException("В базе нет пользователя с таким ID");
+        }
         validationUser.validation(user);
         users.put(user.getId(), user);
         return user;

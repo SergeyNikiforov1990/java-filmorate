@@ -20,7 +20,6 @@ public class ValidationUser {
         for (char c : mail) {
             if (c == '@') {
                 validMail = true;
-                log.error("Ошибка в поле email " + user);
                 break;
             }
         }
@@ -32,6 +31,7 @@ public class ValidationUser {
             }
         }
         if (!validMail | user.getEmail().length() == 0) {
+            log.info("Ошибка в поле email " + user);
             throw new ValidationException("Неверно введен email");
         } else if (validLogin) {
             throw new ValidationException("Неверно введен login");
@@ -53,16 +53,10 @@ public class ValidationUser {
         }
     }
 
-    public void validationId(User user, List<User> users) { // ????????????????????????????????????????????????
-        boolean userId = false;
-        for (User user1 : users) {
-            if (user1.getId() == user.getId()) {
-                userId = true;
-                break;
-            }
-        }
-        if (!userId) {
-            throw new ValidationException("Id unknown");
+    public void validationId(User user) {
+        if ((user.getId() < 1) || (Integer.toString(user.getId())) == null) { // этот момент вызывает вопросы. Можно перевести id в Integer, но надо ли?
+            log.error("Ошибка в поле ID " + user);
+            throw new ValidationException("Ошибка валидации");
         }
     }
 }

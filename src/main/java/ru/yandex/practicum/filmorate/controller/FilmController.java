@@ -25,7 +25,7 @@ public class FilmController {
         return listFilms;
     }
 
-    @PostMapping()
+    @PostMapping
     public Film addFilm(@RequestBody Film film) {
         validatorFilm.validation(film);
         film.setId(id);
@@ -35,9 +35,12 @@ public class FilmController {
         return film;
     }
 
-    @PutMapping()
+    @PutMapping
     public Film updateFilm(@RequestBody Film film) {
-        validatorFilm.validationId(film, getAllFilms());
+        validatorFilm.validationId(film);
+        if (!films.containsKey(film.getId())) {
+            throw new RuntimeException("В базе нет фильма с таким ID");
+        }
         validatorFilm.validation(film);
         films.put(film.getId(), film);
         return film;
