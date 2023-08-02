@@ -7,7 +7,6 @@ import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class ValidatorFilm {
     private final LocalDate dateAfter = LocalDate.of(1895, 12, 28); // в коллекции тестов в Postman
