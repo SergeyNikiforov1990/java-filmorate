@@ -30,10 +30,9 @@ public class ValidatorFilm {
     }
 
     public void validationId(Film film) { // ????????????????????????????????????????????????
-        if ((film.getId() < 1) || (Integer.toString(film.getId()) ) == null) { // этот момент вызывает вопросы. Можно перевести id в Integer, но надо ли?
+        if ((film.getId() < 1) || (Integer.toString(film.getId())) == null) { // этот момент вызывает вопросы. Можно перевести id в Integer, но надо ли?
             log.error("Ошибка в поле ID " + film);
             throw new ValidationException("Ошибка валидации");
         }
         }
     }
-
