@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class User {
     @EqualsAndHashCode.Exclude
-    private int id;
+    private Integer id;
     @NonNull
     private String email;
     @NonNull

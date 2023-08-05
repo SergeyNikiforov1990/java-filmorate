@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Film {
     @EqualsAndHashCode.Exclude
-    private int id;
+    private Integer id;
     @NonNull
     private String name;
     @NonNull

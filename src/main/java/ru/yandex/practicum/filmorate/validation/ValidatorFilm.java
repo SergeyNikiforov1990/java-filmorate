@@ -9,8 +9,7 @@ import ru.yandex.practicum.filmorate.model.Film;
 import java.time.LocalDate;
 
 public class ValidatorFilm {
-    private final LocalDate dateAfter = LocalDate.of(1895, 12, 28); // в коллекции тестов в Postman
-    // дата релиза для создания фильма 1967-03-25, в ТЗ
+    private final LocalDate dateAfter = LocalDate.of(1895, 12, 28);
     private final Logger log = LoggerFactory.getLogger(UserController.class);
 
     public void validation(Film film) throws ValidationException {
@@ -29,10 +28,10 @@ public class ValidatorFilm {
         }
     }
 
-    public void validationId(Film film) { // ????????????????????????????????????????????????
-        if ((film.getId() < 1) || (Integer.toString(film.getId())) == null) { // этот момент вызывает вопросы. Можно перевести id в Integer, но надо ли?
+    public void validationId(Film film) {
+        if (((film.getId()) == null) || (film.getId() < 1)) {
             log.error("Ошибка в поле ID " + film);
             throw new ValidationException("Ошибка валидации");
         }
-        }
     }
+}

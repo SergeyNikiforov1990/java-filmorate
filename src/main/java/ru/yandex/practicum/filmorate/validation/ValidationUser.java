@@ -54,7 +54,7 @@ public class ValidationUser {
     }
 
     public void validationId(User user) {
-        if ((user.getId() < 1) || (Integer.toString(user.getId())) == null) { // этот момент вызывает вопросы. Можно перевести id в Integer, но надо ли?
+        if (((user.getId()) == null) || (user.getId() < 1)) {
             log.error("Ошибка в поле ID " + user);
             throw new ValidationException("Ошибка валидации");
         }
