@@ -22,11 +22,11 @@ public class User {
     private LocalDate birthday;
     private Set<Integer> friendList = new HashSet<>();
 
-    public void addFriend (int id){
+    public void addFriend(int id) {
         friendList.add(id);
     }
 
-    public void deleteFriend (int id){
+    public void deleteFriend(int id) {
         friendList.remove(id);
     }
 

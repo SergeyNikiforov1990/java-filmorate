@@ -1,4 +1,5 @@
 package ru.yandex.practicum.filmorate.storage;
+
 import ru.yandex.practicum.filmorate.model.Film;
 
 import org.slf4j.Logger;
@@ -44,7 +45,7 @@ public class InMemoryFilmStorage implements FilmStorage {
         }
         validationFilm.validation(film);
         films.put(film.getId(), film);
-        log.info("фильм с id " + film.getId() + " обновлен! " + film );
+        log.info("фильм с id " + film.getId() + " обновлен! " + film);
         return film;
     }
 }

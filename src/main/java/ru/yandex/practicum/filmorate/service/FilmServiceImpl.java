@@ -37,7 +37,7 @@ public class FilmServiceImpl implements FilmService {
     public void addLikeFilm(int id, int userId) {
         Film film = filmStorage.films.get(id);
         film.addLikeFilm(userId);
-        log.info("Пользователь с id " + userId + "поставил лайк фильму " + film  );
+        log.info("Пользователь с id " + userId + "поставил лайк фильму " + film);
         filmStorage.updateFilm(film);
     }
 
@@ -45,7 +45,7 @@ public class FilmServiceImpl implements FilmService {
     public void deleteLikeFilm(int id, int userId) {
         Film film = filmStorage.films.get(id);
         film.deleteLikeFilm(userId);
-        log.info("Пользователь с id " + userId + "убрал лайк с фильма " + film  );
+        log.info("Пользователь с id " + userId + "убрал лайк с фильма " + film);
         filmStorage.updateFilm(film);
     }
 

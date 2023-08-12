@@ -14,7 +14,7 @@ import java.util.List;
 
 @Component
 @AllArgsConstructor
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
     private InMemoryUserStorage inMemoryUserStorage;
 
@@ -63,8 +63,8 @@ public class UserServiceImpl implements UserService{
     @Override
     public List<User> getUserFriends(int userId) {
         User user = inMemoryUserStorage.users.get(userId);
-        List <User> friends = new ArrayList<>();
-        for (Integer id : user.getFriendList()){
+        List<User> friends = new ArrayList<>();
+        for (Integer id : user.getFriendList()) {
             friends.add(inMemoryUserStorage.users.get(id));
         }
         return friends;
