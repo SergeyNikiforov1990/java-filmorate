@@ -15,7 +15,7 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
-    private static final Logger log = LoggerFactory.getLogger(UserController.class);
+    private final Logger log = LoggerFactory.getLogger(UserController.class);
     private InMemoryUserStorage inMemoryUserStorage;
 
     @Override

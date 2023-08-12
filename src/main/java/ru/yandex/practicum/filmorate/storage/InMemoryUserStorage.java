@@ -14,7 +14,7 @@ import java.util.Map;
 
 @Component
 public class InMemoryUserStorage implements UserStorage {
-    private static final Logger log = LoggerFactory.getLogger(UserController.class);
+    private final Logger log = LoggerFactory.getLogger(UserController.class);
     ValidationUser validationUser = new ValidationUser();
     private int id = 1;
     public Map<Integer, User> users = new HashMap<>();

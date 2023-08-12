@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 public class FilmServiceImpl implements FilmService {
-    private final static Logger log = LoggerFactory.getLogger(UserController.class);
+    private final Logger log = LoggerFactory.getLogger(UserController.class);
     private final InMemoryFilmStorage filmStorage;
 
     @Override
