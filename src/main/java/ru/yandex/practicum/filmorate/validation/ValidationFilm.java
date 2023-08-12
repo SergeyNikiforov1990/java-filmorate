@@ -8,7 +8,7 @@ import ru.yandex.practicum.filmorate.model.Film;
 
 import java.time.LocalDate;
 
-public class ValidatorFilm {
+public class ValidationFilm {
     private final LocalDate dateAfter = LocalDate.of(1895, 12, 28);
     private final Logger log = LoggerFactory.getLogger(UserController.class);
 

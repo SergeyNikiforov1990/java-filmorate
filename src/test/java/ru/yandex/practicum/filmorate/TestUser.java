@@ -3,8 +3,11 @@ package ru.yandex.practicum.filmorate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.yandex.practicum.filmorate.controller.UserController;
-import ru.yandex.practicum.filmorate.exception.ValidationException;
+import ru.yandex.practicum.filmorate.exception.ValidationException;   
 import ru.yandex.practicum.filmorate.model.User;
+import ru.yandex.practicum.filmorate.service.UserService;
+import ru.yandex.practicum.filmorate.service.UserServiceImpl;
+import ru.yandex.practicum.filmorate.storage.InMemoryUserStorage;
 
 import java.time.LocalDate;
 
@@ -12,7 +15,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestUser {
-    public UserController userController = new UserController();
+    InMemoryUserStorage userStorage = new InMemoryUserStorage();
+    UserService userService = new UserServiceImpl(userStorage);
+    UserController userController = new UserController(userService);
     User templateUser;
 
     @BeforeEach
@@ -51,20 +56,20 @@ public class TestUser {
     }
 
     @Test
-    void createAnObjectinNameWeUseTheLogin() {
+    void createAnObjectInNameWeUseTheLogin() {
         templateUser.setName("");
         userController.addUser(templateUser);
         assertEquals(templateUser.getName(), templateUser.getLogin(), "write the login in the name");
     }
 
     @Test
-    void createAnObjectdataOfBirthCheck() {
+    void createAnObjectDataOfBirthCheck() {
         templateUser.setBirthday(LocalDate.of(2024, 12, 25));
         assertThrows(ValidationException.class, () -> userController.addUser(templateUser), "wrong date of birth");
     }
 
     @Test
-    void createAnObjecPut() {
+    void createAnObjectPut() {
         userController.addUser(templateUser);
         templateUser.setId(1);
         templateUser.setName("Вася");
