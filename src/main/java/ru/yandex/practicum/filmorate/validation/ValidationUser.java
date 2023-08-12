@@ -8,7 +8,6 @@ import ru.yandex.practicum.filmorate.model.User;
 
 import java.time.LocalDate;
 
-
 public class ValidationUser {
     private final Logger log = LoggerFactory.getLogger(UserController.class);
 
