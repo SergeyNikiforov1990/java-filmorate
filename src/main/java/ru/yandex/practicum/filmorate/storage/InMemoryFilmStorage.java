@@ -1,11 +1,10 @@
 package ru.yandex.practicum.filmorate.storage;
 
-import ru.yandex.practicum.filmorate.model.Film;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.controller.UserController;
+import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.validation.ValidationFilm;
 
 import java.util.ArrayList;
@@ -39,7 +38,7 @@ public class InMemoryFilmStorage implements FilmStorage {
 
     @Override
     public Film updateFilm(Film film) {
-        validationFilm.validationId(film);
+        validationFilm.validationIdFilm(film);
         if (!films.containsKey(film.getId())) {
             throw new RuntimeException("В базе нет фильма с таким ID"); // Вопрос по классу исключения!
         }

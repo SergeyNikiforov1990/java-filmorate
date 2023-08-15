@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.yandex.practicum.filmorate.controller.FilmController;
 import ru.yandex.practicum.filmorate.controller.UserController;
+import ru.yandex.practicum.filmorate.exception.DataNotFoundException;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 
 import java.util.Map;
@@ -20,7 +21,7 @@ public class ValidationExceptionResponse {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Map<String, String> noRequiredObject(final NullPointerException e) {
+    public Map<String, String> noRequiredObject(final DataNotFoundException e) {
         return Map.of("Error", e.getMessage());
     }
 

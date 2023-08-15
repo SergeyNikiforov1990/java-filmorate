@@ -3,12 +3,14 @@ package ru.yandex.practicum.filmorate.validation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.yandex.practicum.filmorate.controller.UserController;
+import ru.yandex.practicum.filmorate.exception.DataNotFoundException;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
 
 import java.time.LocalDate;
 
 public class ValidationFilm {
+    ValidationUser validationUser;
     private final LocalDate dateAfter = LocalDate.of(1895, 12, 28);
     private final Logger log = LoggerFactory.getLogger(UserController.class);
 
@@ -28,10 +30,23 @@ public class ValidationFilm {
         }
     }
 
-    public void validationId(Film film) {
+    public void validationIdFilm(Film film) {
         if (((film.getId()) == null) || (film.getId() < 1)) {
             log.error("Ошибка в поле ID " + film);
             throw new ValidationException("Ошибка валидации");
+        }
+    }
+
+    public void searchValidation(Film film) {
+        if (film == null) {
+            throw new DataNotFoundException("Object not found by specified id");
+        }
+    }
+
+    public void validationId (int id) {
+        if (id < 1) {
+            log.error("Нет объекта с таким id");
+            throw new DataNotFoundException("Нет объекта с таким id");
         }
     }
 }

@@ -11,7 +11,6 @@ import ru.yandex.practicum.filmorate.storage.InMemoryUserStorage;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Component
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {

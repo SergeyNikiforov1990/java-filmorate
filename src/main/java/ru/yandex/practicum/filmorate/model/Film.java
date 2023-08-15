@@ -1,7 +1,6 @@
 package ru.yandex.practicum.filmorate.model;
 
 import lombok.*;
-
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -49,6 +48,4 @@ public class Film implements Comparable<Film> {
         this.releaseDate = releaseDate;
         this.duration = duration;
     }
-
-
 }

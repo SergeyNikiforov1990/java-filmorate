@@ -3,6 +3,7 @@ package ru.yandex.practicum.filmorate.validation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.yandex.practicum.filmorate.controller.UserController;
+import ru.yandex.practicum.filmorate.exception.DataNotFoundException;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
 
@@ -56,6 +57,20 @@ public class ValidationUser {
         if (((user.getId()) == null) || (user.getId() < 1)) {
             log.error("Ошибка в поле ID " + user);
             throw new ValidationException("Ошибка валидации");
+        }
+    }
+
+    public void validationAddFriend(int id, int idFriend) {
+        if (id == idFriend) {
+            throw new ValidationException("Unable to add or remove myself from friends list");
+        } else if (id < 1 || idFriend < 1) {
+            throw new DataNotFoundException("ID cannot be negative");
+        }
+    }
+
+    public void searchValidation(User user) {
+        if (user == null) {
+            throw new DataNotFoundException("В базе нет пользователя с таким id");
         }
     }
 }

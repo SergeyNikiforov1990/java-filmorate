@@ -11,7 +11,6 @@ import ru.yandex.practicum.filmorate.storage.InMemoryFilmStorage;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 @Service
 @AllArgsConstructor
 public class FilmServiceImpl implements FilmService {
