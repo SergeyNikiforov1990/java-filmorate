@@ -43,7 +43,7 @@ public class ValidationFilm {
         }
     }
 
-    public void validationId (int id) {
+    public void validationId(int id) {
         if (id < 1) {
             log.error("Нет объекта с таким id");
             throw new DataNotFoundException("Нет объекта с таким id");
