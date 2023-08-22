@@ -20,4 +20,6 @@ public interface UserService {
     List<User> getListCommonFriends(int userId, int otherId);
 
     User getUser(int id);
+
+    User deleteUser(int id);
 }

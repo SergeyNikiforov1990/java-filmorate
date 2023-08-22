@@ -1,4 +1,4 @@
-package ru.yandex.practicum.filmorate.validation;
+package ru.yandex.practicum.filmorate.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -6,12 +6,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.yandex.practicum.filmorate.controller.FilmController;
 import ru.yandex.practicum.filmorate.controller.UserController;
-import ru.yandex.practicum.filmorate.exception.DataNotFoundException;
-import ru.yandex.practicum.filmorate.exception.ValidationException;
 
 import java.util.Map;
 
 @RestControllerAdvice(assignableTypes = {FilmController.class, UserController.class})
+
 public class ValidationExceptionResponse {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -30,5 +29,4 @@ public class ValidationExceptionResponse {
     public Map<String, String> internalServerError(final IndexOutOfBoundsException e) {
         return Map.of("Error", "Internal Server Error");
     }
-
 }

@@ -3,6 +3,7 @@ package ru.yandex.practicum.filmorate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.yandex.practicum.filmorate.controller.UserController;
+import ru.yandex.practicum.filmorate.exception.DataNotFoundException;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.UserService;
@@ -75,5 +76,21 @@ public class TestUser {
         templateUser.setName("Вася");
         userController.updateUser(templateUser);
         assertEquals(1, userController.getAllUsers().size(), "Пользователь обновлен");
+    }
+
+    @Test
+    void getObjectById(){
+        userController.addUser(templateUser);
+        User templateUserTest = userController.getUser(templateUser.getId());
+        assertEquals(templateUser, templateUserTest);
+    }
+
+    @Test
+    void getObjectByIdFail(){
+        userController.addUser(templateUser);
+        User userTest = userController.getUser(templateUser.getId());
+        System.out.println(userTest);
+        assertThrows(DataNotFoundException.class,
+                () -> {userController.getUser(999);});
     }
 }

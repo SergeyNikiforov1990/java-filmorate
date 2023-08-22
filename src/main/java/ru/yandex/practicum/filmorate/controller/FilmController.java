@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.service.FilmService;
-import ru.yandex.practicum.filmorate.validation.ValidationFilm;
 
 import java.util.List;
 
@@ -13,7 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 public class FilmController {
     private final FilmService filmService;
-    private final ValidationFilm validationFilm = new ValidationFilm();
 
     @GetMapping
     public List<Film> getAllFilms() {
@@ -23,8 +21,6 @@ public class FilmController {
     @GetMapping("/{id}")
     @ResponseBody
     public Film getFilm(@PathVariable Integer id) {
-        validationFilm.searchValidation(filmService.getFilm(id));
-        validationFilm.validationIdFilm(filmService.getFilm(id));
         return filmService.getFilm(id);
     }
 
@@ -40,20 +36,17 @@ public class FilmController {
 
     @PutMapping("/{id}/like/{userId}")
     public void addLikeFilm(@PathVariable int id, @PathVariable int userId) {
-        validationFilm.validationId(userId);
         filmService.addLikeFilm(id, userId);
     }
 
     @DeleteMapping("/{id}/like/{userId}")
     public void deleteLikeFilm(@PathVariable int id, @PathVariable int userId) {
-        validationFilm.validationId(userId);
-        validationFilm.validationIdFilm(filmService.getFilm(id));
         filmService.deleteLikeFilm(id, userId);
     }
 
     @GetMapping("/popular")
     @ResponseBody
-    public List<Film> getListBestMovies(@RequestParam(required = false) Integer count) {
+    public List<Film> getListBestMovies(@RequestParam(name = "count", defaultValue = "10") Integer count) {
         return filmService.getListBestMovies(count);
     }
 }

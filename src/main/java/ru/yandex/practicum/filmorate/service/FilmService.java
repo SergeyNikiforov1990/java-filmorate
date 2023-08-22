@@ -19,7 +19,5 @@ public interface FilmService {
 
     List<Film> getListBestMovies(Integer count);
 
-    List<Film> getListBestTenMovies();
-
-
+    Film deleteFilm(int id);
 }

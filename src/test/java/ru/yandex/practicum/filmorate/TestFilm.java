@@ -15,8 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestFilm {
-    InMemoryFilmStorage filmStorage = new InMemoryFilmStorage();
-    FilmService filmService = new FilmServiceImpl(filmStorage);
+    FilmService filmService;
     public FilmController filmController = new FilmController(filmService);
     Film templateFilm;
     String description = "a";

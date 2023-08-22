@@ -22,14 +22,6 @@ public class User {
     private LocalDate birthday;
     private Set<Integer> friendList = new HashSet<>();
 
-    public void addFriend(int id) {
-        friendList.add(id);
-    }
-
-    public void deleteFriend(int id) {
-        friendList.remove(id);
-    }
-
     public User(@NonNull String email, @NonNull String login, @NonNull String name, @NonNull LocalDate dateOfBirth) {
         this.email = email;
         this.login = login;

@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.UserService;
-import ru.yandex.practicum.filmorate.validation.ValidationUser;
 
 import java.util.List;
 
@@ -16,7 +15,6 @@ import java.util.List;
 public class UserController {
     private final Logger log = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
-    private final ValidationUser validationUser = new ValidationUser();
 
     @GetMapping
     public List<User> getAllUsers() {
@@ -26,15 +24,12 @@ public class UserController {
     @GetMapping("/{id}")
     public User getUser(@PathVariable int id) {
         log.info("Getting User " + id);
-        validationUser.searchValidation(userService.getUser(id));
         return userService.getUser(id);
     }
 
     @PostMapping
     public User addUser(@RequestBody User user) {
         log.info("Getting User " + user);
-        validationUser.validation(user);
-        validationUser.searchValidation(user);
         return userService.addUser(user);
     }
 
@@ -45,7 +40,6 @@ public class UserController {
 
     @PutMapping("/{id}/friends/{friendId}")
     public void addFriend(@PathVariable int id, @PathVariable int friendId) {
-        validationUser.validationAddFriend(id, friendId);
         userService.addFriend(id, friendId);
     }
 
