@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addFriend(int userId, int friendId) {
-        if (userId == friendId){
+        if (userId == friendId) {
             throw new ValidationException("Неверный запрос на добавление себя в список своих друзей");
         }
         User user = getUser(userId); // валидация здесь
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteFriend(int userId, int friendId) {
-        if (userId == friendId){
+        if (userId == friendId) {
             throw new ValidationException("Неверный запрос на удаление себя из списка своих друзей");
         }
         User user = userStorage.getUser(userId); // валидация здесь
@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getListCommonFriends(int userId, int otherId) {
-        if (userId == otherId){
+        if (userId == otherId) {
             throw new ValidationException("Неверный запрос на вывод общих друзей с самим собой");
         }
         User user = userStorage.getUser(userId);// валидация здесь
