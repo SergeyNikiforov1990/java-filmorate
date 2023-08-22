@@ -79,18 +79,19 @@ public class TestUser {
     }
 
     @Test
-    void getObjectById(){
+    void getObjectById() {
         userController.addUser(templateUser);
         User templateUserTest = userController.getUser(templateUser.getId());
         assertEquals(templateUser, templateUserTest);
     }
 
     @Test
-    void getObjectByIdFail(){
+    void getObjectByIdFail() {
         userController.addUser(templateUser);
-        User userTest = userController.getUser(templateUser.getId());
-        System.out.println(userTest);
         assertThrows(DataNotFoundException.class,
-                () -> {userController.getUser(999);});
+                () -> {
+                    userController.getUser(999);
+                }
+        );
     }
 }
