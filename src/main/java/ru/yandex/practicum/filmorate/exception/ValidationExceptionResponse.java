@@ -20,7 +20,7 @@ public class ValidationExceptionResponse {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Map<String, String> noRequiredObject(final DataNotFoundException e) {
+    public Map<String, String> notFoundObject(final DataNotFoundException e) {
         return Map.of("Error", e.getMessage());
     }
 

@@ -12,7 +12,7 @@ public class ValidationFilm {
     private final LocalDate dateAfter = LocalDate.of(1895, 12, 28);
     private final Logger log = LoggerFactory.getLogger(UserController.class);
 
-    public void validation(Film film) throws ValidationException {
+    public void validationForAdd(Film film) throws ValidationException {
         if (film.getName().length() == 0) {
             log.error("Ошибка поля name: " + film);
             throw new ValidationException("Не введено название фильма");

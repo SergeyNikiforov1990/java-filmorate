@@ -39,6 +39,7 @@ public class ValidationUser {
         }
         if (user.getName() == null) { //
             log.info("Ошибка в поле имени " + user);
+            log.info("Вместо имени пользователя будет использован login");
             user.setName(user.getLogin());
         } else if (user.getName().length() == 0) {
             log.info("Ошибка в поле имени " + user);

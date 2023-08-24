@@ -10,6 +10,7 @@ import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
+import ru.yandex.practicum.filmorate.validation.ValidationFilm;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,6 +18,8 @@ import java.util.stream.Collectors;
 @Service
 public class FilmServiceImpl implements FilmService {
     private final Logger log = LoggerFactory.getLogger(FilmController.class);
+    private final ValidationFilm validationFilm = new ValidationFilm();
+
     private final FilmStorage filmStorage;
     private final UserStorage userStorage;
 
@@ -33,11 +36,14 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public Film addFilm(Film film) {
+        validationFilm.validationForAdd(film);
         return filmStorage.addFilm(film);
     }
 
     @Override
     public Film updateFilm(Film film) {
+        validationFilm.validationIdFilm(film);
+        validationFilm.validationForAdd(film);
         return filmStorage.updateFilm(film);
     }
 
@@ -48,9 +54,9 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public void addLikeFilm(int id, int userId) {
-        log.info("Пользователь с id " + userId + "поставил лайк фильму c id: " + id);
         Film film = filmStorage.getFilm(id);
         User user = userStorage.getUser(userId);
+        log.info("Пользователь с id " + userId + "поставил лайк фильму c id: " + id);
         film.getUserLikesFilm().add(user.getId());
     }
 

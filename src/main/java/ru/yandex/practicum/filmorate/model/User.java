@@ -1,6 +1,7 @@
 package ru.yandex.practicum.filmorate.model;
 
 import lombok.*;
+import ru.yandex.practicum.filmorate.exception.DataNotFoundException;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -28,4 +29,13 @@ public class User {
         this.name = name;
         this.birthday = dateOfBirth;
     }
+
+    public Set<Integer> getFriendList() {
+        if (friendList == null) {
+            throw new DataNotFoundException("friendList пользователя пуст"); // надо ли?
+        }
+        return friendList;
+    }
+
+
 }

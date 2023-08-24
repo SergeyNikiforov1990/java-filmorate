@@ -1,6 +1,7 @@
 package ru.yandex.practicum.filmorate.model;
 
 import lombok.*;
+import ru.yandex.practicum.filmorate.exception.DataNotFoundException;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -27,5 +28,12 @@ public class Film {
         this.description = description;
         this.releaseDate = releaseDate;
         this.duration = duration;
+    }
+
+    public Set<Integer> getUserLikesFilm() {
+        if (userLikesFilm == null){
+            throw new DataNotFoundException("userLikesFilm пуст");
+        }
+        return userLikesFilm;
     }
 }
