@@ -31,8 +31,8 @@ public class Film {
     }
 
     public Set<Integer> getUserLikesFilm() {
-        if (userLikesFilm == null){
-            throw new DataNotFoundException("userLikesFilm пуст");
+        if (userLikesFilm == null) {
+            throw new DataNotFoundException("userLikesFilm пуст"); // надо ли?
         }
         return userLikesFilm;
     }
