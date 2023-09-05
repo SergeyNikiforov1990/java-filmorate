@@ -1,15 +1,17 @@
 package ru.yandex.practicum.filmorate.model;
 
 import lombok.*;
-import ru.yandex.practicum.filmorate.exception.DataNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
+@Builder(toBuilder = true)
+@Slf4j
 public class User {
     @EqualsAndHashCode.Exclude
     private Integer id;
@@ -23,19 +25,18 @@ public class User {
     private LocalDate birthday;
     private Set<Integer> friendList = new HashSet<>();
 
-    public User(@NonNull String email, @NonNull String login, @NonNull String name, @NonNull LocalDate dateOfBirth) {
+    public User(Integer id, @NonNull String email, @NonNull String login, @NonNull String name, @NonNull LocalDate birthday) {
+        this.id = id;
         this.email = email;
         this.login = login;
         this.name = name;
-        this.birthday = dateOfBirth;
+        this.birthday = birthday;
     }
 
-    public Set<Integer> getFriendList() {
-        if (friendList == null) {
-            throw new DataNotFoundException("friendList пользователя пуст"); // надо ли?
-        }
-        return friendList;
+    public User(@NonNull String email, @NonNull String login, @NonNull String name, @NonNull LocalDate birthday) {
+        this.email = email;
+        this.login = login;
+        this.name = name;
+        this.birthday = birthday;
     }
-
-
 }
