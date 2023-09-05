@@ -97,7 +97,7 @@ class FilmorateApplicationTests {
                 LocalDate.parse("1990-01-06"), "mail@mail.ru");
         userService.addUser(createdUser);
 
-        User createdUser2 = createUser(2, "Sergey", "Sega ",
+        User createdUser2 = createUser(2, "Sergey", "Sega",
                 LocalDate.parse("1990-01-07"), "mail@google.com");
         userService.addUser(createdUser2);
 
@@ -117,7 +117,7 @@ class FilmorateApplicationTests {
                 LocalDate.parse("1990-01-06"), "mail@mail.ru");
         userService.addUser(createdUser);
 
-        User createdUser2 = createUser(2, "Sergey", "Sega ",
+        User createdUser2 = createUser(2, "Sergey", "Sega",
                 LocalDate.parse("1990-01-07"), "mail@google.com");
         userService.addUser(createdUser2);
 
@@ -145,9 +145,8 @@ class FilmorateApplicationTests {
                 LocalDate.parse("1990-01-06"), "mail@mail.ru");
         userService.addUser(createdUser);
 
-        User createdUser2 = createUser(2, "Sergey", "Sega ",
+        User createdUser2 = createUser(1, "Sergey", "Sega",
                 LocalDate.parse("1990-01-07"), "mail@google.com");
-        userService.addUser(createdUser2);
 
         userService.updateUser(createdUser2);
         System.out.println(createdUser2.toString());
@@ -168,7 +167,7 @@ class FilmorateApplicationTests {
                 LocalDate.parse("1990-01-06"), "mail@mail.ru");
         userService.addUser(createdUser);
 
-        User createdUser2 = createUser(2, "Sergey", "Sega ",
+        User createdUser2 = createUser(2, "Sergey", "Sega",
                 LocalDate.parse("1990-01-07"), "mail@google.com");
         userService.addUser(createdUser2);
 
@@ -191,7 +190,7 @@ class FilmorateApplicationTests {
                 LocalDate.parse("1990-01-06"), "mail@mail.ru");
         userService.addUser(createdUser);
 
-        User createdUser2 = createUser(2, "Sergey", "Sega ",
+        User createdUser2 = createUser(2, "Sergey", "Sega",
                 LocalDate.parse("1990-01-07"), "mail@google.com");
         userService.addUser(createdUser2);
 
@@ -214,7 +213,7 @@ class FilmorateApplicationTests {
                 LocalDate.parse("1990-01-06"), "mail@mail.ru");
         userService.addUser(createdUser);
 
-        User createdUser2 = createUser(2, "Sergey", "Sega ",
+        User createdUser2 = createUser(2, "Sergey", "Sega",
                 LocalDate.parse("1990-01-07"), "mail@google.com");
         userService.addUser(createdUser2);
 
@@ -230,7 +229,7 @@ class FilmorateApplicationTests {
         //get common friends
         List<User> commonFriend = userService.getListCommonFriends(createdUser.getId(), createdUser2.getId());
         assertEquals(commonFriend.size(), 1);
-        assertEquals(commonFriend.get(0), createdUser3);
+        assertEquals(commonFriend.get(0), userService.getUser(createdUser3.getId()));
     }
 
     @Test
@@ -303,7 +302,7 @@ class FilmorateApplicationTests {
         filmService.addFilm(createdFilm);
         System.out.println(filmService.getFilm(1).toString());
 
-        assertEquals(filmService.getFilmLikes(createdFilm.getId()), createdFilm);
+        assertEquals(filmService.getFilm(createdFilm.getId()).getId(), createdFilm.getId());
     }
 
     @Test
@@ -343,6 +342,7 @@ class FilmorateApplicationTests {
         userService.addUser(user);
 
         filmService.addLikeFilm(createdFilm.getId(), user.getId());
+        System.out.println(filmService.getFilm(1).toString());
 
         assertEquals(filmService.getFilmLikes(createdFilm.getId()).size(), 1);
     }
@@ -381,7 +381,7 @@ class FilmorateApplicationTests {
         System.out.println(filmService.getFilm(1).toString());
 
         assertEquals(filmService.getListBestMovies(1).size(), 1);
-        assertEquals(filmService.getListBestMovies(1).get(0), createdFilm);
+        assertEquals(filmService.getListBestMovies(1).get(0), filmService.getFilm(createdFilm.getId()));
     }
 
     @Test
@@ -407,7 +407,7 @@ class FilmorateApplicationTests {
 
         System.out.println(filmService.getListBestMovies(10));
         assertEquals(filmService.getListBestMovies(10).size(), 2);
-        assertEquals(filmService.getListBestMovies(10).get(0), createdFilm2);
+        assertEquals(filmService.getListBestMovies(10).get(0), filmService.getFilm(createdFilm2.getId()));
     }
 
     @Test

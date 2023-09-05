@@ -31,7 +31,7 @@ public class FilmLikeDbStorage implements FilmLikeStorage {
         List<Integer> likes = jdbcTemplate.query(sql, (rs, rowNum) -> rs.getInt("user_id"), filmId);
         Set<Integer> likesSet = new HashSet<>(likes);
         log.info("Получено " + likesSet.size() + " лайков к фильму с id " + filmId);
-        return null;
+        return likesSet;
     }
 
     @Override
