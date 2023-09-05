@@ -8,11 +8,10 @@ import ru.yandex.practicum.filmorate.model.User;
 
 import java.time.LocalDate;
 
-
 public class ValidationUser {
     private final Logger log = LoggerFactory.getLogger(UserController.class);
 
-    public void validation(User user) throws ValidationException {
+    public void validationForAdd(User user) throws ValidationException {
         char[] mail = user.getEmail().toCharArray();
         char[] login = user.getLogin().toCharArray();
         boolean validMail = false;
@@ -40,6 +39,7 @@ public class ValidationUser {
         }
         if (user.getName() == null) { //
             log.info("Ошибка в поле имени " + user);
+            log.info("Вместо имени пользователя будет использован login");
             user.setName(user.getLogin());
         } else if (user.getName().length() == 0) {
             log.info("Ошибка в поле имени " + user);
