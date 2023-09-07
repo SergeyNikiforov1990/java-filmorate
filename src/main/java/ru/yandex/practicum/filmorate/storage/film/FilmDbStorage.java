@@ -131,27 +131,4 @@ public class FilmDbStorage implements FilmStorage {
             return film;
         };
     }
-
-    /*private RowMapper<Film> filmRowMapper() {
-        return (rs, rowNum) -> {
-            Film film = new Film();
-            film.setId(rs.getInt("film_id"));
-            film.setName(rs.getString("film_name"));
-            film.setDescription(rs.getString("description"));
-            film.setReleaseDate(rs.getDate("release_date").toLocalDate());
-            film.setDuration(rs.getInt("duration"));
-            film.setMpa(new RatingMPA(rs.getInt("rating_id")));
-
-            RatingMPA ratingMPA = new RatingMPA(rs.getInt("rating_id"));
-            ratingMPA.setName(rs.getString("rating_name"));
-            film.setMpa(ratingMPA);
-
-            do {
-                Genre genre = new Genre(rs.getString("genres"));
-                film.getGenres().add(genre);
-                film.getUserIdLikesFilm().add(rs.getInt("useridlikesfilm"));
-            } while ((rs.next()));
-            return film;
-        };
-    }*/
 }

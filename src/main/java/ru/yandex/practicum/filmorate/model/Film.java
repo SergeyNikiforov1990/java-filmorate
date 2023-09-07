@@ -24,26 +24,4 @@ public class Film {
     private Set<Integer> userIdLikesFilm = new HashSet<>();
     private LinkedHashSet<Genre> genres = new LinkedHashSet<>();
     private RatingMPA mpa;
-
-    /*public Film(Integer id, @NonNull String name, @NonNull String description, @NonNull LocalDate releaseDate, @NonNull Integer duration, @NonNull RatingMPA mpa) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.releaseDate = releaseDate;
-        this.duration = duration;
-    }
-
-    public Film(@NonNull String name, @NonNull String description, @NonNull LocalDate releaseDate, @NonNull int duration) {
-        this.name = name;
-        this.description = description;
-        this.releaseDate = releaseDate;
-        this.duration = duration;
-    }
-
-    public Set<Integer> getUserIdLikesFilm() {
-        if (userIdLikesFilm == null) {
-            throw new DataNotFoundException("userLikesFilm пуст"); // надо ли?
-        }
-        return userIdLikesFilm;
-    }*/
 }
