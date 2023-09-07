@@ -1,58 +1,54 @@
 package ru.yandex.practicum.filmorate.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.yandex.practicum.filmorate.controller.UserController;
+import ru.yandex.practicum.filmorate.exception.DataNotFoundException;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
-import ru.yandex.practicum.filmorate.storage.UserStorage;
+import ru.yandex.practicum.filmorate.storage.friend.FriendStorage;
+import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 import ru.yandex.practicum.filmorate.validation.ValidationUser;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
+@Slf4j
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class UserServiceImpl implements UserService {
-    private final Logger log = LoggerFactory.getLogger(UserController.class);
-    private final UserStorage userStorage;
     private final ValidationUser validationUser = new ValidationUser();
-
-    @Autowired
-    public UserServiceImpl(UserStorage userStorage) {
-        this.userStorage = userStorage;
-    }
-
-    @Override
-    public List<User> getAllUsers() {
-        return userStorage.getAllUsers();
-    }
+    private final UserStorage userDbStorage;
+    private final FriendStorage friendDbStorage;
 
     @Override
     public User addUser(User user) {
         validationUser.validationForAdd(user);
-        return userStorage.addUser(user);
+        return userDbStorage.addUser(user);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userDbStorage.getAllUsers();
+    }
+
+    @Override
+    public User getUser(int userId) {
+        validateUserId(userId);
+        return userDbStorage.getUser(userId);
     }
 
     @Override
     public User updateUser(User user) {
         validationUser.validationId(user);
         validationUser.validationForAdd(user);
-        return userStorage.updateUser(user);
+        return userDbStorage.updateUser(user);
     }
 
     @Override
-    public User getUser(int id) {
-        return userStorage.getUser(id);
-    }
-
-    @Override
-    public User deleteUser(int id) {
-        return userStorage.deleteUser(id);
+    public void deleteUser(int id) {
+        validateUserId(id);
+        userDbStorage.deleteUser(id);
     }
 
     @Override
@@ -60,11 +56,10 @@ public class UserServiceImpl implements UserService {
         if (userId == friendId) {
             throw new ValidationException("Неверный запрос на добавление себя в список своих друзей");
         }
-        User user = getUser(userId);
-        User friendsUser = getUser(friendId);
+        validateUserId(userId);
+        validateUserId(friendId);
         log.trace("Пользователь: " + userId + " добвил в список друзей пользователя: " + friendId);
-        user.getFriendList().add(friendId);
-        friendsUser.getFriendList().add(userId);
+        friendDbStorage.addFriend(userId, friendId);
     }
 
     @Override
@@ -72,33 +67,28 @@ public class UserServiceImpl implements UserService {
         if (userId == friendId) {
             throw new ValidationException("Неверный запрос на удаление себя из списка своих друзей");
         }
-        User user = userStorage.getUser(userId);
-        User friendsUser = userStorage.getUser(friendId);
-        log.info("Пользователь: " + userId + " удалил из списка друзей пользователя: " + friendId);
-        user.getFriendList().remove(friendId);
-        friendsUser.getFriendList().remove(userId);
+        validateUserId(userId);
+        validateUserId(friendId);
+        friendDbStorage.removeFriend(userId, friendId);
     }
 
     @Override
     public List<User> getUserFriends(int userId) {
-        Set<Integer> friendIds = userStorage.getUser(userId).getFriendList();
-        log.info("Запрос на вывод списка друзей пользователя: " + userId);
-        return friendIds.stream().map(userStorage::getUser).collect(Collectors.toList());
+        validateUserId(userId);
+        return friendDbStorage.getFriends(userId);
     }
 
     @Override
     public List<User> getListCommonFriends(int userId, int otherId) {
-        if (userId == otherId) {
-            throw new ValidationException("Неверный запрос на вывод общих друзей с самим собой");
+        validateUserId(userId);
+        validateUserId(otherId);
+        return friendDbStorage.getCommonFriends(userId, otherId);
+    }
+
+    private void validateUserId(int userId) {
+        if (!userDbStorage.userExists(userId) || userId <= 0) {
+            log.warn("Пользователь с id: " + userId + "не найден");
+            throw new DataNotFoundException("Пользователь с id " + userId + " не найден.");
         }
-        User user = userStorage.getUser(userId);
-        User user1 = userStorage.getUser(otherId);
-        log.info("Запрос на вывод списка общих друзей пользователей: " + userId + " и " + otherId);
-        Set<Integer> firstUserFriends = new HashSet<>(user.getFriendList());
-        firstUserFriends.retainAll(user1.getFriendList());
-        return firstUserFriends.stream()
-                .map(userStorage::getUser)
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
     }
 }
