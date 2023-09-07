@@ -16,13 +16,13 @@ import java.util.List;
 public class FriendController {
     private final UserService userService;
 
-    @PutMapping("/{friendId}")
+    @PutMapping("{friendId}")
     public void addFriend(@PathVariable int id, @PathVariable int friendId) {
         log.info("Добавление пользователем с id: " + id + " в друзья пользователя с id:" + friendId);
         userService.addFriend(id, friendId);
     }
 
-    @DeleteMapping("/{friendId}")
+    @DeleteMapping("{friendId}")
     public void deleteFriend(@PathVariable int id, @PathVariable int friendId) {
         log.info("Удаление пользователем с id: " + id + " из друзей пользователя с id: " + friendId);
         userService.deleteFriend(id, friendId);

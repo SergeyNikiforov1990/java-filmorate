@@ -34,6 +34,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUser(int userId) {
+        validateUserId(userId);
         return userDbStorage.getUser(userId);
     }
 
@@ -85,7 +86,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private void validateUserId(int userId) {
-        if (!userDbStorage.userExists(userId)) {
+        if (!userDbStorage.userExists(userId) || userId <= 0) {
             log.warn("Пользователь с id: " + userId + "не найден");
             throw new DataNotFoundException("Пользователь с id " + userId + " не найден.");
         }

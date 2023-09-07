@@ -30,10 +30,7 @@ public class UserController {
 
     @PostMapping
     public User addUser(@RequestBody User user) {
-        log.info("Создание пользователя " + user);
-        User createdUser = userService.addUser(user);
-        log.info("Создан пользователь " + createdUser);
-        return createdUser;
+        return userService.addUser(user);
     }
 
     @PutMapping
@@ -42,3 +39,4 @@ public class UserController {
         return userService.updateUser(user);
     }
 }
+

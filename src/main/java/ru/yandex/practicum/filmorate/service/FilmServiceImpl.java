@@ -147,7 +147,7 @@ public class FilmServiceImpl implements FilmService {
     }
 
     private void validateUserId(int userId) {
-        if (!userDbStorage.userExists(userId)) {
+        if (userId <=0 || !userDbStorage.userExists(userId)) {
             log.warn("Пользователь с id: " + userId + " не найден");
             throw new DataNotFoundException("Пользователь с id " + userId + " не найден.");
         }
